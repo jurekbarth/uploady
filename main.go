@@ -5,8 +5,11 @@ import (
 	"io/ioutil"
 	"net"
 	"net/http"
+	"os"
 	"path/filepath"
 	"text/template"
+
+	"github.com/mdp/qrterminal/v3"
 )
 
 func uploadFile(w http.ResponseWriter, r *http.Request) {
@@ -76,6 +79,15 @@ func setupRoutes() {
 }
 
 func main() {
-	fmt.Println("http://" + localIP() + ":8080")
+	localURL := "http://" + localIP() + ":8080"
+	fmt.Println(localURL)
+	config := qrterminal.Config{
+		Level:     qrterminal.M,
+		Writer:    os.Stdout,
+		BlackChar: qrterminal.WHITE,
+		WhiteChar: qrterminal.BLACK,
+		QuietZone: 1,
+	}
+	qrterminal.GenerateWithConfig(localURL, config)
 	setupRoutes()
 }
