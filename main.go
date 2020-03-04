@@ -44,7 +44,6 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 	// write this byte array to our temporary file
 	tempFile.Write(fileBytes)
 	// return that we have successfully uploaded our file!
-	// fmt.Fprintf(w, "Successfully Uploaded File\n")
 	http.Redirect(w, r, "http://"+localIP()+":8080", 302)
 }
 
